@@ -27,8 +27,13 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-% images looked for under figs/ as well
-\graphicspath{{figs/}}
+% look for images in repo root and in figs/
+\graphicspath{{./}{figs/}}
+% convenient include macro with graceful fallback box
+\newcommand{\incfig}[1]{%
+  \IfFileExists{#1}{\includegraphics[width=.7\linewidth]{#1}}{%
+    \IfFileExists{figs/#1}{\includegraphics[width=.7\linewidth]{figs/#1}}{%
+      \fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}}}
 
 \begin{document}
 
@@ -54,7 +59,7 @@
     \vspace{0.5cm}
     {\large Student Name:\par}
     \begin{itemize}[leftmargin=5cm,rightmargin=4cm]
-        \item  Abdizhan Zhapan  ID: 202173002
+        \item Abdizhan Zhapan \quad ID: 202173002
     \end{itemize}
 
     \vspace{0.5cm}
@@ -129,46 +134,17 @@ Therefore the exact solution and its derivative are
 \]
 
 \paragraph{Plots}
-Run the Matlab script below to generate and save the figures as
-\texttt{figs/p1\_u.png} and \texttt{figs/p1\_up.png}. These files are included here.
-
 \begin{figure}[h]
   \centering
-  \IfFileExists{p1_u.png}{\includegraphics[width=.7\linewidth]{p1_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p1_u.png}
   \caption{Graph of \(u(x)\) for Problem 1}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \IfFileExists{p1_up.png}{\includegraphics[width=.7\linewidth]{p1_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p1_up.png}
   \caption{Graph of \(u'(x)\) for Problem 1}
 \end{figure}
-
-\paragraph{Matlab code for Problem 1}
-\begin{verbatim}
-% Problem 1: -u'' + u = 1 on (0,1), u(0)=0, u'(1)=0
-% This script saves figs/p1_u.png and figs/p1_up.png
-
-clear; clc; close all
-if ~exist('figs','dir'); mkdir('figs'); end
-
-u  = @(x) 1 - cosh(x) + sinh(x).*tanh(1);
-up = @(x) -sinh(x) + cosh(x).*tanh(1);
-
-x = linspace(0,1,400);
-
-figure(1)
-plot(x, u(x), 'LineWidth', 1.6);
-grid on; xlabel('x'); ylabel('u(x)');
-title('Problem 1: u(x)');
-saveas(gcf, 'figs/p1_u.png');
-
-figure(2)
-plot(x, up(x), 'LineWidth', 1.6);
-grid on; xlabel('x'); ylabel('u''(x)');
-title('Problem 1: u''(x)');
-saveas(gcf, 'figs/p1_up.png');
-\end{verbatim}
 
 \newpage
 \subsection*{Problem 2}
@@ -214,20 +190,21 @@ u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
 \]
 which matches the distributional identity obtained by integrating
 \(-u''+u=\delta\) across \(x=\tfrac12\).
-We plot \(u\) and \(u'\) below; the derivative shows a clean jump discontinuity at \(x=\tfrac12\).
 
+\paragraph{Plots}
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p2_u.png}{\includegraphics[width=.7\linewidth]{figs/p2_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p2_u.png}
   \caption{Graph of \(u(x)\) for Problem 2}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p2_up.png}{\includegraphics[width=.7\linewidth]{figs/p2_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p2_up.png}
   \caption{Graph of \(u'(x)\) for Problem 2}
 \end{figure}
 
+\newpage
 \subsection*{Problem 3}
 
 We solve
@@ -274,25 +251,25 @@ so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit do
 \paragraph{Plots}
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p3_u.png}{\includegraphics[width=.7\linewidth]{p3_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p3_u.png}
   \caption{Graph of \(u(x)\) for Problem 3}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p3_up.png}{\includegraphics[width=.7\linewidth]{p3_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p3_up.png}
   \caption{Graph of \(u'(x)\) for Problem 3}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p3_upp.png}{\includegraphics[width=.7\linewidth]{p3_upp.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p3_upp.png}
   \caption{Graph of \(u''(x)\) for Problem 3}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p3_uppp.png}{\includegraphics[width=.7\linewidth]{p3_uppp.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \incfig{p3_uppp.png}
   \caption{Graph of \(u^{(3)}(x)\) for Problem 3}
 \end{figure}
 
