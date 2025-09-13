@@ -229,7 +229,72 @@ We plot \(u\) and \(u'\) below; the derivative shows a clean jump discontinuity 
 \end{figure}
 
 \subsection*{Problem 3}
-\textit{To be completed. Place your derivation and figures here.}
+
+We solve
+\[
+-u^{(4)}(x)=\delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1,
+\qquad u(0)=0,\quad u''(0)=0,\quad u(1)=0,\quad u''(1)=0 .
+\]
+On each side of \(a=\tfrac12\) the right hand side vanishes, so \(u\) is a cubic polynomial there. Enforcing
+continuity of \(u,u',u''\) at \(x=\tfrac12\) and the jump condition
+\[
+u^{(3)}\!\left(\tfrac12+\right)-u^{(3)}\!\left(\tfrac12-\right)=-1,
+\]
+together with the four boundary conditions, yields the exact solution
+\[
+u(x)=
+\begin{cases}
+\dfrac{x^{3}}{12}-\dfrac{x}{16}, & 0\le x\le \tfrac12,\\[6pt]
+-\dfrac{x^{3}}{12}+\dfrac{x^{2}}{4}-\dfrac{3x}{16}+\dfrac{1}{48}, & \tfrac12\le x\le 1,
+\end{cases}
+\]
+with derivatives
+\[
+u'(x)=
+\begin{cases}
+\dfrac{x^{2}}{4}-\dfrac{1}{16}, & 0< x< \tfrac12,\\[6pt]
+-\dfrac{x^{2}}{4}+\dfrac{x}{2}-\dfrac{3}{16}, & \tfrac12< x< 1,
+\end{cases}
+\qquad
+u''(x)=
+\begin{cases}
+\dfrac{x}{2}, & 0\le x\le \tfrac12,\\[6pt]
+-\dfrac{x}{2}+\dfrac{1}{2}, & \tfrac12\le x\le 1,
+\end{cases}
+\]
+\[
+u^{(3)}(x)=
+\begin{cases}
+\dfrac{1}{2}, & 0< x< \tfrac12,\\[6pt]
+-\dfrac{1}{2}, & \tfrac12< x< 1,
+\end{cases}
+\]
+so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit downward jump \(-1\), which matches the equation.
+
+\paragraph{Plots}
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p3_u.png}{\includegraphics[width=.7\linewidth]{p3_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u(x)\) for Problem 3}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p3_up.png}{\includegraphics[width=.7\linewidth]{p3_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u'(x)\) for Problem 3}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p3_upp.png}{\includegraphics[width=.7\linewidth]{p3_upp.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u''(x)\) for Problem 3}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p3_uppp.png}{\includegraphics[width=.7\linewidth]{p3_uppp.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u^{(3)}(x)\) for Problem 3}
+\end{figure}
 
 \newpage
 \printbibliography
