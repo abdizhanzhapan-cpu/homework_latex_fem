@@ -1,10 +1,9 @@
-\documentclass[12pt,a4paper]{article}
-
+\documentclass[12pt, a4paper]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+
 \usepackage[english]{babel}
 \usepackage{microtype}
-\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}
+\usepackage{amsmath,amsfonts,amsthm}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{geometry}
@@ -12,192 +11,173 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{tabularx}
+\usepackage{mathtools}
 \usepackage{csquotes}
-\usepackage{listings}
+\usepackage[style=apa]{biblatex}
+\addbibresource{ref.bib}
 
-\geometry{left=3cm,right=3cm,top=3cm,bottom=3cm,headheight=15pt}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue
-}
+\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm, headheight=15pt}
+\addtolength{\topmargin}{-2.5pt}
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{MATH 477 Applied Finite Element Analysis}
-\fancyhead[R]{Homework Report}
+\fancyhead[L]{MATH 477: Applied Finite Element Analysis}
+\fancyhead[R]{Homework Report \#xx}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-
-\lstset{
-  language=Matlab,
-  basicstyle=\ttfamily\small,
-  numbers=left,
-  numbersep=8pt,
-  frame=single,
-  breaklines=true,
-  columns=fullflexible
-}
-
-\newif\ifhavebib
-\IfFileExists{ref.bib}{\havebibtrue}{\havebibfalse}
-\usepackage[style=apa]{biblatex}
-\ifhavebib
-  \addbibresource{ref.bib}
-\fi
-
+% images looked for under figs/ as well
 \graphicspath{{figs/}}
 
 \begin{document}
 
 \begin{titlepage}
-  \centering
+    \centering
 
-  {\Large\bfseries MATH 477 Applied Finite Element Analysis\par}
-  \vspace{12pt}
-  {\large Homework Report\par}
-  \vspace{12pt}
-  {\large \today\par}
-  \vspace{12pt}
+    \vspace*{0.5cm}
+    {\Large\bfseries MATH 477: Applied Finite Element Analysis\par}
 
-  % place a logo file into the project root or figs to show it
-  \IfFileExists{figs/nu_logo.png}{\includegraphics[width=.25\textwidth]{figs/nu_logo.png}\par\vspace{8pt}}{}
+    \vspace{1cm}
+    {\large Homework Report \# xx\par}
 
-  \vfill
+    \vspace{0.5cm}
+    {\today\par}
 
-  \begin{tabularx}{\textwidth}{@{}lX@{}}
-    Student Name: & \textbf{Your Name} \\
-    Student ID:   & \textbf{Your ID} \\
-    Course:       & MATH 477 Applied Finite Element Analysis \\
-    Instructor:   & Dongming Wei \\
-    Subject Area: & Applied Finite Element Analysis \\
-    Description:  & Homework solutions prepared in \LaTeX
-  \end{tabularx}
+    \vspace{1pt}
+    \includegraphics[width=0.3\textwidth]{NU-logo.png}\\
+    \includegraphics[width=0.15\textwidth]{sosah-logo.png}
 
-  \vfill
-  {\footnotesize By submitting this work I confirm that I have read the academic integrity policy and that all work is my own except where clearly cited.\par}
+    \vspace{0.5cm}
+    Submitted for {\bf MATH 477: Applied Finite Element Analysis}, Department of Mathematics, School of Sciences and Humanities, Nazarbayev University
+
+    \vspace{0.5cm}
+    {\large Student Name:\par}
+    \begin{itemize}[leftmargin=5cm,rightmargin=4cm]
+        \item  xxxxxxxxxxx  ID: 202031896
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \flushleft{
+      Subject Area: {\bf Applied Finite Element Analysis} \\
+      Description: {\bf Homework Report} \\
+      Course Instructor: {\bf Dongming Wei}
+    }
+
+    \vspace{0.5cm}
+    {\footnotesize In submitting this work we are indicating
+    that we have read the University's Academic Integrity Policy. We
+    declare that all material in this assessment is our own work except
+    where there is clear acknowledgment and reference to the work of
+    others.\par}
 \end{titlepage}
 
-\tableofcontents
 \newpage
+\section*{Problems}
 
-\section{Instructions summary}
-Solve each boundary value problem by Laplace transform. Provide the exact solution \(u(x)\). Include a short check of boundary conditions and units. Plot \(u(x)\) in Matlab. Place Matlab listings in the appendix and export figures into the \texttt{figs} folder to include them in the report.
+\begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
+  \item Consider the boundary value problem
+  \[
+    -u''(x) + u(x) = 1,\quad 0<x<1;\qquad u(0)=0,\quad u'(1)=0.
+  \]
+  Solve for the exact solution \(u\) and plot graphs of \(u\) and \(u'\) by using Matlab.
 
-\section{Problem one}
-\subsection{Statement}
-Write the problem exactly as assigned.
+  \item Consider the boundary value problem
+  \[
+    -u''(x) + u(x) = \delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1;\qquad
+    u(0)=0,\quad u(1)=0,
+  \]
+  where \(\delta(x-\tfrac{1}{2})\) is the Dirac delta corresponding to a point source at \(x=\tfrac{1}{2}\).
+  Solve for the exact solution by Laplace transform. Plot graphs of \(u\) and \(u'\) by using Matlab. Describe the appearance of the graph of \(u'\).
 
-\subsection{Solution by Laplace transform}
-Show the steps for the transform in \(x\) as covered in class. State any transform identities you use. Derive \(U(s)\) and invert to obtain \(u(x)\). Simplify the expression.
+  \item Consider the boundary value problem
+  \[
+    -u^{(4)}(x)=\delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1;\qquad
+    u(0)=0,\quad u''(0)=0,\quad u(1)=0,\quad u''(1)=0.
+  \]
+  Solve for the exact solution \(u\) and plot graphs of \(u,u',u'',u'''\) by using Matlab.
+\end{enumerate}
 
-\subsection{Checks}
-\begin{itemize}[leftmargin=1.5em]
-  \item Verify both boundary conditions.
-  \item State the regularity of \(u\).
-  \item Comment on physical interpretation if a distributed load \(g(x)\) is present.
-\end{itemize}
+\newpage
+\section*{Solutions}
 
-\subsection{Plot}
-Include the Matlab figure.
+\subsection*{Problem 1}
+
+We solve
+\[
+-u''(x)+u(x)=1,\quad 0<x<1,\qquad u(0)=0,\quad u'(1)=0.
+\]
+Equivalently,
+\[
+u''(x)-u(x)=-1.
+\]
+The homogeneous equation \(u''-u=0\) has general solution \(u_h(x)=A\cosh x+B\sinh x\).
+A constant particular solution is \(u_p(x)=1\).
+Hence
+\[
+u(x)=A\cosh x+B\sinh x+1.
+\]
+From \(u(0)=0\) we obtain \(A=-1\).
+Since \(u'(x)=A\sinh x+B\cosh x\), the condition \(u'(1)=0\) gives
+\[
+-A\sinh 1 + B\cosh 1 = 0 \quad\Rightarrow\quad B=\tanh(1).
+\]
+Therefore the exact solution and its derivative are
+\[
+\boxed{\,u(x)=1-\cosh x+\tanh(1)\,\sinh x\,},\qquad
+\boxed{\,u'(x)=-\sinh x+\tanh(1)\,\cosh x\,}.
+\]
+
+\paragraph{Plots}
+Run the Matlab script below to generate and save the figures as
+\texttt{figs/p1\_u.png} and \texttt{figs/p1\_up.png}. These files are included here.
+
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p1_u.png}{\includegraphics[width=.7\linewidth]{figs/p1_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
-  \caption{Graph of \(u(x)\) for Problem one}
+  \IfFileExists{p1_u.png}{\includegraphics[width=.7\linewidth]{p1_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u(x)\) for Problem 1}
 \end{figure}
 
-\section{Problem two with a point source}
-\subsection{Statement}
-Write the problem with Dirac delta at \(x=x_{0}\).
-
-\subsection{Solution by Laplace transform}
-Work out the transform and inversion. Describe the jump in \(u'(x)\) at \(x_{0}\) and how it arises from the delta source.
-
-\subsection{Checks}
-\begin{itemize}[leftmargin=1.5em]
-  \item Verify boundary conditions.
-  \item Verify the jump condition for \(u'(x)\) at \(x_{0}\).
-\end{itemize}
-
-\subsection{Plot}
 \begin{figure}[h]
   \centering
-  \IfFileExists{figs/p2_u.png}{\includegraphics[width=.7\linewidth]{figs/p2_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
-  \caption{Graph of \(u(x)\) for Problem two}
+  \IfFileExists{p1_up.png}{\includegraphics[width=.7\linewidth]{p1_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u'(x)\) for Problem 1}
 \end{figure}
 
-\section{Problem three}
-\subsection{Statement}
-Write the third problem exactly as assigned.
+\paragraph{Matlab code for Problem 1}
+\begin{verbatim}
+% Problem 1: -u'' + u = 1 on (0,1), u(0)=0, u'(1)=0
+% This script saves figs/p1_u.png and figs/p1_up.png
 
-\subsection{Solution by Laplace transform}
-Provide full derivation and the final closed form of \(u(x)\).
+clear; clc; close all
+if ~exist('figs','dir'); mkdir('figs'); end
 
-\subsection{Checks}
-Confirm boundary conditions and discuss limiting cases.
+u  = @(x) 1 - cosh(x) + sinh(x).*tanh(1);
+up = @(x) -sinh(x) + cosh(x).*tanh(1);
 
-\subsection{Plot}
-\begin{figure}[h]
-  \centering
-  \IfFileExists{figs/p3_u.png}{\includegraphics[width=.7\linewidth]{figs/p3_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
-  \caption{Graph of \(u(x)\) for Problem three}
-\end{figure}
+x = linspace(0,1,400);
 
-\section{Conclusion}
-Summarize the method and any observations from the plots.
+figure(1)
+plot(x, u(x), 'LineWidth', 1.6);
+grid on; xlabel('x'); ylabel('u(x)');
+title('Problem 1: u(x)');
+saveas(gcf, 'figs/p1_u.png');
 
-\ifhavebib
+figure(2)
+plot(x, up(x), 'LineWidth', 1.6);
+grid on; xlabel('x'); ylabel('u''(x)');
+title('Problem 1: u''(x)');
+saveas(gcf, 'figs/p1_up.png');
+\end{verbatim}
+
+\newpage
+\subsection*{Problem 2}
+\textit{To be completed. Place your derivation and figures here.}
+
+\subsection*{Problem 3}
+\textit{To be completed. Place your derivation and figures here.}
+
 \newpage
 \printbibliography
-\fi
-
-\appendix
-\section{Matlab code}
-Place clean Matlab scripts here.
-
-\subsection*{Problem one script}
-\begin{lstlisting}
-% p1_plot.m
-% create x grid
-x = linspace(0,1,400);
-% example placeholder solution shape
-u = x .* (1 - x);
-plot(x,u,'LineWidth',1.5);
-xlabel('x'); ylabel('u(x)');
-title('Problem one');
-saveas(gcf,'figs/p1_u.png');
-\end{lstlisting}
-
-\subsection*{Problem two script}
-\begin{lstlisting}
-% p2_plot.m
-x0 = 0.4;
-x  = linspace(0,1,400);
-% toy profile with a kink at x0
-u = x .* (1 - x);
-u(x >= x0) = u(x >= x0) + 0.1*(x(x >= x0) - x0);
-plot(x,u,'LineWidth',1.5);
-xlabel('x'); ylabel('u(x)');
-title('Problem two');
-saveas(gcf,'figs/p2_u.png');
-\end{lstlisting}
-
-\subsection*{Problem three script}
-\begin{lstlisting}
-% p3_plot.m
-x = linspace(0,1,400);
-u = sin(pi*x);
-plot(x,u,'LineWidth',1.5);
-xlabel('x'); ylabel('u(x)');
-title('Problem three');
-saveas(gcf,'figs/p3_u.png');
-\end{lstlisting}
-
 
 \end{document}
