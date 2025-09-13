@@ -172,7 +172,61 @@ saveas(gcf, 'figs/p1_up.png');
 
 \newpage
 \subsection*{Problem 2}
-\textit{To be completed. Place your derivation and figures here.}
+
+We solve
+\[
+-u''(x)+u(x)=\delta\!\left(x-\tfrac{1}{2}\right), \quad 0<x<1,
+\qquad u(0)=0,\quad u(1)=0 .
+\]
+
+For the operator \(L u=-u''+u\) with homogeneous Dirichlet boundary conditions, the Green function is
+\[
+G(x,a)=
+\begin{cases}
+\dfrac{\sinh x\,\sinh(1-a)}{\sinh 1}, & 0\le x\le a,\\[6pt]
+\dfrac{\sinh a\,\sinh(1-x)}{\sinh 1}, & a\le x\le 1,
+\end{cases}
+\]
+where \(a\in(0,1)\). With the unit point load at \(a=\tfrac12\) the solution is \(u(x)=G(x,\tfrac12)\), i.e.
+\[
+\boxed{
+u(x)=\frac{\sinh(\tfrac12)}{\sinh 1}
+\begin{cases}
+\sinh x, & 0\le x\le \tfrac12,\\[4pt]
+\sinh(1-x), & \tfrac12\le x\le 1 .
+\end{cases}}
+\]
+This \(u\) is continuous on \([0,1]\) and satisfies \(u(0)=u(1)=0\).
+
+The derivative is piecewise
+\[
+u'(x)=\frac{\sinh(\tfrac12)}{\sinh 1}
+\begin{cases}
+\cosh x, & 0<x<\tfrac12,\\[4pt]
+-\cosh(1-x), & \tfrac12<x<1 ,
+\end{cases}
+\]
+and it has a unit downward jump at \(x=\tfrac12\):
+\[
+u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
+=-\,\frac{\sinh(\tfrac12)\cosh(\tfrac12)+\sinh(\tfrac12)\cosh(\tfrac12)}{\sinh 1}
+=-1,
+\]
+which matches the distributional identity obtained by integrating
+\(-u''+u=\delta\) across \(x=\tfrac12\).
+We plot \(u\) and \(u'\) below; the derivative shows a clean jump discontinuity at \(x=\tfrac12\).
+
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p2_u.png}{\includegraphics[width=.7\linewidth]{figs/p2_u.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u(x)\) for Problem 2}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \IfFileExists{figs/p2_up.png}{\includegraphics[width=.7\linewidth]{figs/p2_up.png}}{\fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}
+  \caption{Graph of \(u'(x)\) for Problem 2}
+\end{figure}
 
 \subsection*{Problem 3}
 \textit{To be completed. Place your derivation and figures here.}
