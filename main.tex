@@ -5,6 +5,8 @@
 \usepackage{microtype}
 \usepackage{amsmath,amsfonts,amsthm}
 \usepackage{graphicx}
+\usepackage{float}          
+\usepackage[section]{placeins} 
 \usepackage{url}
 \usepackage{geometry}
 \usepackage{hyperref}
@@ -134,17 +136,19 @@ Therefore the exact solution and its derivative are
 \]
 
 \paragraph{Plots}
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p1_u.png}
   \caption{Graph of \(u(x)\) for Problem 1}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p1_up.png}
   \caption{Graph of \(u'(x)\) for Problem 1}
 \end{figure}
+\FloatBarrier
+
 
 \newpage
 \subsection*{Problem 2}
@@ -192,17 +196,19 @@ which matches the distributional identity obtained by integrating
 \(-u''+u=\delta\) across \(x=\tfrac12\).
 
 \paragraph{Plots}
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p2_u.png}
   \caption{Graph of \(u(x)\) for Problem 2}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p2_up.png}
   \caption{Graph of \(u'(x)\) for Problem 2}
 \end{figure}
+\FloatBarrier
+
 
 \newpage
 \subsection*{Problem 3}
@@ -249,25 +255,25 @@ u^{(3)}(x)=
 so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit downward jump \(-1\), which matches the equation.
 
 \paragraph{Plots}
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p3_u.png}
   \caption{Graph of \(u(x)\) for Problem 3}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p3_up.png}
   \caption{Graph of \(u'(x)\) for Problem 3}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p3_upp.png}
   \caption{Graph of \(u''(x)\) for Problem 3}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \incfig{p3_uppp.png}
   \caption{Graph of \(u^{(3)}(x)\) for Problem 3}
