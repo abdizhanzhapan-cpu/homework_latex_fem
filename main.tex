@@ -5,7 +5,7 @@
 \usepackage{microtype}
 \usepackage{amsmath,amsfonts,amsthm}
 \usepackage{graphicx}
-\usepackage{float}          
+\usepackage{float}         
 \usepackage[section]{placeins} 
 \usepackage{url}
 \usepackage{geometry}
@@ -36,6 +36,11 @@
   \IfFileExists{#1}{\includegraphics[width=.7\linewidth]{#1}}{%
     \IfFileExists{figs/#1}{\includegraphics[width=.7\linewidth]{figs/#1}}{%
       \fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}}}
+% heading that cannot be jumped by floats
+\newcommand{\PlotsHeading}{%
+  \FloatBarrier
+  \noindent\textbf{Plots}\par\vspace{0.25em}%
+}
 
 \begin{document}
 
@@ -135,7 +140,7 @@ Therefore the exact solution and its derivative are
 \boxed{\,u'(x)=-\sinh x+\tanh(1)\,\cosh x\,}.
 \]
 
-\paragraph{Plots}
+\PlotsHeading
 \begin{figure}[H]
   \centering
   \incfig{p1_u.png}
@@ -195,7 +200,7 @@ u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
 which matches the distributional identity obtained by integrating
 \(-u''+u=\delta\) across \(x=\tfrac12\).
 
-\paragraph{Plots}
+\PlotsHeading
 \begin{figure}[H]
   \centering
   \incfig{p2_u.png}
@@ -254,7 +259,7 @@ u^{(3)}(x)=
 \]
 so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit downward jump \(-1\), which matches the equation.
 
-\paragraph{Plots}
+\PlotsHeading
 \begin{figure}[H]
   \centering
   \incfig{p3_u.png}
@@ -278,6 +283,7 @@ so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit do
   \incfig{p3_uppp.png}
   \caption{Graph of \(u^{(3)}(x)\) for Problem 3}
 \end{figure}
+\FloatBarrier
 
 \newpage
 \printbibliography
