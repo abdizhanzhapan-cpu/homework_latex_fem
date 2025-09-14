@@ -115,30 +115,20 @@
 
 \subsection*{Problem 1}
 
-We solve
+Given
 \[
--u''(x)+u(x)=1,\quad 0<x<1,\qquad u(0)=0,\quad u'(1)=0.
+-u''(x)+u(x)=1,\quad 0<x<1,\qquad u(0)=0,\quad u'(1)=0 .
 \]
-Equivalently,
+
+Set \(v=u-1\). Then \(v''-v=0\) with \(v(0)=-1\) and \(v'(1)=0\).
+Write \(v=C_1\cosh x+C_2\sinh x\), so \(v'(x)=C_1\sinh x+C_2\cosh x\).
+From the data \(C_1=-1\) and \(C_2=\tanh 1\). Hence the compact form
 \[
-u''(x)-u(x)=-1.
+\boxed{\,u(x)=1-\frac{\cosh(1-x)}{\cosh 1}\,},\qquad
+\boxed{\,u'(x)=\frac{\sinh(1-x)}{\cosh 1}\,}.
 \]
-The homogeneous equation \(u''-u=0\) has general solution \(u_h(x)=A\cosh x+B\sinh x\).
-A constant particular solution is \(u_p(x)=1\).
-Hence
-\[
-u(x)=A\cosh x+B\sinh x+1.
-\]
-From \(u(0)=0\) we obtain \(A=-1\).
-Since \(u'(x)=A\sinh x+B\cosh x\), the condition \(u'(1)=0\) gives
-\[
--A\sinh 1 + B\cosh 1 = 0 \quad\Rightarrow\quad B=\tanh(1).
-\]
-Therefore the exact solution and its derivative are
-\[
-\boxed{\,u(x)=1-\cosh x+\tanh(1)\,\sinh x\,},\qquad
-\boxed{\,u'(x)=-\sinh x+\tanh(1)\,\cosh x\,}.
-\]
+Checks: \(u(0)=0\) and \(u'(1)=0\).
+
 
 \PlotsHeading
 \begin{figure}[H]
@@ -160,45 +150,41 @@ Therefore the exact solution and its derivative are
 
 We solve
 \[
--u''(x)+u(x)=\delta\!\left(x-\tfrac{1}{2}\right), \quad 0<x<1,
-\qquad u(0)=0,\quad u(1)=0 .
+-u''(x)+u(x)=\delta\!\left(x-\tfrac12\right),\quad 0<x<1,\qquad u(0)=0,\ u(1)=0 .
 \]
 
-For the operator \(L u=-u''+u\) with homogeneous Dirichlet boundary conditions, the Green function is
+Let \(x_<:=\min\{x,\tfrac12\}\) and \(x_>:=\max\{x,\tfrac12\}\).
+For the Dirichlet operator \(L=-\tfrac{d^2}{dx^2}+1\) on \((0,1)\) the Green function is
 \[
-G(x,a)=
+G(x,a)=\frac{\sinh(x_<)\,\sinh(1-x_>)}{\sinh 1}.
+\]
+With a unit source at \(a=\tfrac12\) we have the exact solution
+\[
+\boxed{\,u(x)=\frac{\sinh(\min\{x,\tfrac12\})\,\sinh(1-\max\{x,\tfrac12\})}{\sinh 1}\,}
+=
+\frac{\sinh(\tfrac12)}{\sinh 1}\times
 \begin{cases}
-\dfrac{\sinh x\,\sinh(1-a)}{\sinh 1}, & 0\le x\le a,\\[6pt]
-\dfrac{\sinh a\,\sinh(1-x)}{\sinh 1}, & a\le x\le 1,
+\sinh x, & 0\le x\le \tfrac12,\\[3pt]
+\sinh(1-x), & \tfrac12\le x\le 1.
 \end{cases}
 \]
-where \(a\in(0,1)\). With the unit point load at \(a=\tfrac12\) the solution is \(u(x)=G(x,\tfrac12)\), i.e.
-\[
-\boxed{
-u(x)=\frac{\sinh(\tfrac12)}{\sinh 1}
-\begin{cases}
-\sinh x, & 0\le x\le \tfrac12,\\[4pt]
-\sinh(1-x), & \tfrac12\le x\le 1 .
-\end{cases}}
-\]
-This \(u\) is continuous on \([0,1]\) and satisfies \(u(0)=u(1)=0\).
 
-The derivative is piecewise
+The derivative is
 \[
-u'(x)=\frac{\sinh(\tfrac12)}{\sinh 1}
+u'(x)=\frac{\sinh(\tfrac12)}{\sinh 1}\times
 \begin{cases}
-\cosh x, & 0<x<\tfrac12,\\[4pt]
--\cosh(1-x), & \tfrac12<x<1 ,
+\cosh x, & 0<x<\tfrac12,\\[3pt]
+-\cosh(1-x), & \tfrac12<x<1,
 \end{cases}
 \]
-and it has a unit downward jump at \(x=\tfrac12\):
+so \(u\) is continuous, \(u(0)=u(1)=0\), and \(u'\) has a unit downward jump at \(x=\tfrac12\):
 \[
 u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
-=-\,\frac{\sinh(\tfrac12)\cosh(\tfrac12)+\sinh(\tfrac12)\cosh(\tfrac12)}{\sinh 1}
-=-1,
+=-\frac{2\sinh(\tfrac12)\cosh(\tfrac12)}{\sinh 1}
+=-\frac{\sinh 1}{\sinh 1}=-1.
 \]
-which matches the distributional identity obtained by integrating
-\(-u''+u=\delta\) across \(x=\tfrac12\).
+
+\textit{Plots} The figures for \(u\) and \(u'\) are included below and match these formulas.
 
 \PlotsHeading
 \begin{figure}[H]
@@ -218,46 +204,40 @@ which matches the distributional identity obtained by integrating
 \newpage
 \subsection*{Problem 3}
 
-We solve
+Solve
 \[
--u^{(4)}(x)=\delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1,
-\qquad u(0)=0,\quad u''(0)=0,\quad u(1)=0,\quad u''(1)=0 .
+-u^{(4)}(x)=\delta\!\left(x-\tfrac12\right),\quad 0<x<1,
+\qquad u(0)=u''(0)=0,\quad u(1)=u''(1)=0 .
 \]
-On each side of \(a=\tfrac12\) the right hand side vanishes, so \(u\) is a cubic polynomial there. Enforcing
-continuity of \(u,u',u''\) at \(x=\tfrac12\) and the jump condition
+
+Away from \(x=\tfrac12\) we have \(u^{(4)}=0\), hence \(u\) is cubic on each side:
+\(u_L(x)=ax^{3}+cx\) for \(0\le x\le \tfrac12\) and
+\(u_R(x)=Ax^{3}+Bx^{2}+Cx+D\) for \(\tfrac12\le x\le 1\)
+(the boundary conditions at \(0\) already force the absence of \(x^{2}\) and the constant term on the left).
+
+Continuity of \(u,u',u''\) at \(x=\tfrac12\) together with the jump condition obtained by integrating across the point load,
 \[
 u^{(3)}\!\left(\tfrac12+\right)-u^{(3)}\!\left(\tfrac12-\right)=-1,
 \]
-together with the four boundary conditions, yields the exact solution
+and the right end conditions \(u(1)=u''(1)=0\), fix the constants. The compact result is
 \[
+\boxed{
 u(x)=
 \begin{cases}
 \dfrac{x^{3}}{12}-\dfrac{x}{16}, & 0\le x\le \tfrac12,\\[6pt]
--\dfrac{x^{3}}{12}+\dfrac{x^{2}}{4}-\dfrac{3x}{16}+\dfrac{1}{48}, & \tfrac12\le x\le 1,
-\end{cases}
+-\dfrac{x^{3}}{12}+\dfrac{x^{2}}{4}-\dfrac{3x}{16}+\dfrac{1}{48}, & \tfrac12\le x\le 1 .
+\end{cases}}
 \]
-with derivatives
-\[
-u'(x)=
-\begin{cases}
-\dfrac{x^{2}}{4}-\dfrac{1}{16}, & 0< x< \tfrac12,\\[6pt]
--\dfrac{x^{2}}{4}+\dfrac{x}{2}-\dfrac{3}{16}, & \tfrac12< x< 1,
-\end{cases}
-\qquad
-u''(x)=
-\begin{cases}
-\dfrac{x}{2}, & 0\le x\le \tfrac12,\\[6pt]
--\dfrac{x}{2}+\dfrac{1}{2}, & \tfrac12\le x\le 1,
-\end{cases}
-\]
+
+For later reference the third derivative is constant on each side,
 \[
 u^{(3)}(x)=
 \begin{cases}
-\dfrac{1}{2}, & 0< x< \tfrac12,\\[6pt]
--\dfrac{1}{2}, & \tfrac12< x< 1,
+\dfrac12, & 0<x<\tfrac12,\\[4pt]
+-\dfrac12, & \tfrac12<x<1 ,
 \end{cases}
 \]
-so \(u,u',u''\) are continuous at \(x=\tfrac12\) while \(u^{(3)}\) has a unit downward jump \(-1\), which matches the equation.
+so the jump equals \(-1\) as required, while the boundary data \(u(0)=u(1)=0\) and \(u''(0)=u''(1)=0\) are also satisfied.
 
 \PlotsHeading
 \begin{figure}[H]
