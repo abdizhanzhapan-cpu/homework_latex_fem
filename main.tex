@@ -117,17 +117,19 @@
 
 Given
 \[
--u''(x)+u(x)=1,\quad 0<x<1,\qquad u(0)=0,\quad u'(1)=0 .
+-\,\mathbb{U}''(\vartheta)+\mathbb{U}(\vartheta)=1,\quad 0<\vartheta<1,\qquad \mathbb{U}(0)=0,\ \mathbb{U}'(1)=0 .
 \]
 
-Set \(v=u-1\). Then \(v''-v=0\) with \(v(0)=-1\) and \(v'(1)=0\).
-Write \(v=C_1\cosh x+C_2\sinh x\), so \(v'(x)=C_1\sinh x+C_2\cosh x\).
-From the data \(C_1=-1\) and \(C_2=\tanh 1\). Hence the compact form
+Let \(\Xi(\vartheta)=\mathbb{U}(\vartheta)-1\). Then \(\Xi''-\Xi=0\) with \(\Xi(0)=-1\) and \(\Xi'(1)=0\).
+Write \(\Xi(\vartheta)=\wp\,\cosh\vartheta+\varpi\,\sinh\vartheta\). From the data \(\wp=-1\) and \(\varpi=\tanh 1\).
+
+A compact form is
 \[
-\boxed{\,u(x)=1-\frac{\cosh(1-x)}{\cosh 1}\,},\qquad
-\boxed{\,u'(x)=\frac{\sinh(1-x)}{\cosh 1}\,}.
+\boxed{\,\mathbb{U}(\vartheta)=1-\frac{\cosh(1-\vartheta)}{\cosh 1}\,},\qquad
+\boxed{\,\mathbb{U}'(\vartheta)=\frac{\sinh(1-\vartheta)}{\cosh 1}\,}.
 \]
-Checks: \(u(0)=0\) and \(u'(1)=0\).
+
+Checks: \(\mathbb{U}(0)=0\) and \(\mathbb{U}'(1)=0\).
 
 
 \PlotsHeading
@@ -148,41 +150,33 @@ Checks: \(u(0)=0\) and \(u'(1)=0\).
 \newpage
 \subsection*{Problem 2}
 
-We solve
+Consider
 \[
--u''(x)+u(x)=\delta\!\left(x-\tfrac12\right),\quad 0<x<1,\qquad u(0)=0,\ u(1)=0 .
+-\,\mathcal{V}''(\zeta)+\mathcal{V}(\zeta)=\delta(\zeta-\alpha),\quad 0<\zeta<1,
+\qquad \mathcal{V}(0)=\mathcal{V}(1)=0,\ \ \alpha=\tfrac12 .
 \]
 
-Let \(x_<:=\min\{x,\tfrac12\}\) and \(x_>:=\max\{x,\tfrac12\}\).
-For the Dirichlet operator \(L=-\tfrac{d^2}{dx^2}+1\) on \((0,1)\) the Green function is
+A compact symmetric form of the exact solution is
 \[
-G(x,a)=\frac{\sinh(x_<)\,\sinh(1-x_>)}{\sinh 1}.
+\boxed{\ \mathcal{V}(\zeta)=\frac{\sinh(\tfrac12)}{\sinh 1}\,
+\sinh\!\bigl(\tfrac12-|\zeta-\tfrac12|\bigr)\ } .
 \]
-With a unit source at \(a=\tfrac12\) we have the exact solution
+Away from the source \(\zeta=\alpha\), the derivative can be written using the sign function:
 \[
-\boxed{\,u(x)=\frac{\sinh(\min\{x,\tfrac12\})\,\sinh(1-\max\{x,\tfrac12\})}{\sinh 1}\,}
-=
-\frac{\sinh(\tfrac12)}{\sinh 1}\times
-\begin{cases}
-\sinh x, & 0\le x\le \tfrac12,\\[3pt]
-\sinh(1-x), & \tfrac12\le x\le 1.
-\end{cases}
+\boxed{\ \mathcal{V}'(\zeta)=
+-\frac{\sinh(\tfrac12)}{\sinh 1}\,
+\operatorname{sgn}\!\bigl(\zeta-\tfrac12\bigr)\,
+\cosh\!\bigl(\tfrac12-|\zeta-\tfrac12|\bigr)\ } \quad (\zeta\ne\tfrac12).
 \]
 
-The derivative is
+These formulas give \(\mathcal{V}(0)=\mathcal{V}(1)=0\) and
 \[
-u'(x)=\frac{\sinh(\tfrac12)}{\sinh 1}\times
-\begin{cases}
-\cosh x, & 0<x<\tfrac12,\\[3pt]
--\cosh(1-x), & \tfrac12<x<1,
-\end{cases}
+\mathcal{V}'\!\left(\tfrac12+\right)-\mathcal{V}'\!\left(\tfrac12-\right)
+=-\,\frac{2\sinh(\tfrac12)\cosh(\tfrac12)}{\sinh 1}
+=-1,
 \]
-so \(u\) is continuous, \(u(0)=u(1)=0\), and \(u'\) has a unit downward jump at \(x=\tfrac12\):
-\[
-u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
-=-\frac{2\sinh(\tfrac12)\cosh(\tfrac12)}{\sinh 1}
-=-\frac{\sinh 1}{\sinh 1}=-1.
-\]
+as required by integrating the equation across the point load at \(\alpha\).
+
 
 \textit{Plots} The figures for \(u\) and \(u'\) are included below and match these formulas.
 
@@ -206,38 +200,34 @@ u'\!\left(\tfrac12+\right)-u'\!\left(\tfrac12-\right)
 
 Solve
 \[
--u^{(4)}(x)=\delta\!\left(x-\tfrac12\right),\quad 0<x<1,
-\qquad u(0)=u''(0)=0,\quad u(1)=u''(1)=0 .
+-\,\mathcal{W}^{(4)}(\chi)=\delta\!\left(\chi-\tfrac12\right),\quad 0<\chi<1,
+\qquad \mathcal{W}(0)=\mathcal{W}''(0)=0,\quad \mathcal{W}(1)=\mathcal{W}''(1)=0 .
 \]
 
-Away from \(x=\tfrac12\) we have \(u^{(4)}=0\), hence \(u\) is cubic on each side:
-\(u_L(x)=ax^{3}+cx\) for \(0\le x\le \tfrac12\) and
-\(u_R(x)=Ax^{3}+Bx^{2}+Cx+D\) for \(\tfrac12\le x\le 1\)
-(the boundary conditions at \(0\) already force the absence of \(x^{2}\) and the constant term on the left).
-
-Continuity of \(u,u',u''\) at \(x=\tfrac12\) together with the jump condition obtained by integrating across the point load,
+On each side of \(\chi=\tfrac12\) we have \(\mathcal{W}^{(4)}=0\), so \(\mathcal{W}\) is cubic. Enforcing continuity of
+\(\mathcal{W},\mathcal{W}',\mathcal{W}''\) at \(\chi=\tfrac12\), the jump condition
 \[
-u^{(3)}\!\left(\tfrac12+\right)-u^{(3)}\!\left(\tfrac12-\right)=-1,
+\mathcal{W}^{(3)}\!\left(\tfrac12+\right)-\mathcal{W}^{(3)}\!\left(\tfrac12-\right)=-1,
 \]
-and the right end conditions \(u(1)=u''(1)=0\), fix the constants. The compact result is
+and the boundary data at \(\chi=0,1\), yields
 \[
 \boxed{
-u(x)=
+\mathcal{W}(\chi)=
 \begin{cases}
-\dfrac{x^{3}}{12}-\dfrac{x}{16}, & 0\le x\le \tfrac12,\\[6pt]
--\dfrac{x^{3}}{12}+\dfrac{x^{2}}{4}-\dfrac{3x}{16}+\dfrac{1}{48}, & \tfrac12\le x\le 1 .
+\dfrac{\chi^{3}}{12}-\dfrac{\chi}{16}, & 0\le \chi\le \tfrac12,\\[6pt]
+-\dfrac{\chi^{3}}{12}+\dfrac{\chi^{2}}{4}-\dfrac{3\chi}{16}+\dfrac{1}{48}, & \tfrac12\le \chi\le 1 .
 \end{cases}}
 \]
 
-For later reference the third derivative is constant on each side,
+For reference,
 \[
-u^{(3)}(x)=
+\mathcal{W}^{(3)}(\chi)=
 \begin{cases}
-\dfrac12, & 0<x<\tfrac12,\\[4pt]
--\dfrac12, & \tfrac12<x<1 ,
+\dfrac12, & 0<\chi<\tfrac12,\\[4pt]
+-\dfrac12, & \tfrac12<\chi<1 ,
 \end{cases}
 \]
-so the jump equals \(-1\) as required, while the boundary data \(u(0)=u(1)=0\) and \(u''(0)=u''(1)=0\) are also satisfied.
+so the jump equals \(-1\) and \(\mathcal{W}(0)=\mathcal{W}(1)=0\) with \(\mathcal{W}''(0)=\mathcal{W}''(1)=0\) as required.
 
 \PlotsHeading
 \begin{figure}[H]
