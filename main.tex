@@ -1,236 +1,73 @@
-\documentclass[12pt, a4paper]{article}
-\usepackage[T1]{fontenc}
+% ========= in Problems =========
+\item A uniform Euler Bernoulli beam of length $L$ and mass $m$ is clamped at both ends.
+A vertical point load $P$ is applied at $x=L/3$.
+Let $\phi(x)$ denote the small transverse deflection.
+Derive from first principles the boundary value model for $\phi$ that includes the self weight of the beam.
 
-\usepackage[english]{babel}
-\usepackage{microtype}
-\usepackage{amsmath,amsfonts,amsthm}
-\usepackage{graphicx}
-\usepackage{float}         
-\usepackage[section]{placeins} 
-\usepackage{url}
-\usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{fancyhdr}
-\usepackage{enumitem}
-\usepackage{tabularx}
-\usepackage{mathtools}
-\usepackage{csquotes}
-\usepackage[style=apa]{biblatex}
-\addbibresource{ref.bib}
+% ========= in Solutions =========
+\subsection*{Problem 1a  derivation of the model}
 
-\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm, headheight=15pt}
-\addtolength{\topmargin}{-2.5pt}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{MATH 477: Applied Finite Element Analysis}
-\fancyhead[R]{Homework Report 1}
-\fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-
-% look for images in repo root and in figs/
-\graphicspath{{./}{figs/}}
-% convenient include macro with graceful fallback box
-\newcommand{\incfig}[1]{%
-  \IfFileExists{#1}{\includegraphics[width=.7\linewidth]{#1}}{%
-    \IfFileExists{figs/#1}{\includegraphics[width=.7\linewidth]{figs/#1}}{%
-      \fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}}}
-% heading that cannot be jumped by floats
-\newcommand{\PlotsHeading}{%
-  \FloatBarrier
-  \noindent\textbf{Plots}\par\vspace{0.25em}%
-}
-
-\begin{document}
-
-\begin{titlepage}
-    \centering
-
-    \vspace*{0.5cm}
-    {\Large\bfseries MATH 477: Applied Finite Element Analysis\par}
-
-    \vspace{1cm}
-    {\large Homework Report 1\par}
-
-    \vspace{0.5cm}
-    {\today\par}
-
-    \vspace{1pt}
-    \includegraphics[width=0.3\textwidth]{NU-logo.png}\\
-    \includegraphics[width=0.15\textwidth]{sosah-logo.png}
-
-    \vspace{0.5cm}
-    Submitted for {\bf MATH 477: Applied Finite Element Analysis}, Department of Mathematics, School of Sciences and Humanities, Nazarbayev University
-
-    \vspace{0.5cm}
-    {\large Student Name:\par}
-    \begin{itemize}[leftmargin=5cm,rightmargin=4cm]
-        \item Abdizhan Zhapan \quad ID: 202173002
-    \end{itemize}
-
-    \vspace{0.5cm}
-    \flushleft{
-      Subject Area: {\bf Applied Finite Element Analysis} \\
-      Description: {\bf Homework Report} \\
-      Course Instructor: {\bf Dongming Wei}
-    }
-
-    \vspace{0.5cm}
-    {\footnotesize In submitting this work we are indicating
-    that we have read the University's Academic Integrity Policy. We
-    declare that all material in this assessment is our own work except
-    where there is clear acknowledgment and reference to the work of
-    others.\par}
-\end{titlepage}
-
-\newpage
-\section*{Problems}
-
-\begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
-  \item Consider the boundary value problem
-  \[
-    -u''(x) + u(x) = 1,\quad 0<x<1;\qquad u(0)=0,\quad u'(1)=0.
-  \]
-  Solve for the exact solution \(u\) and plot graphs of \(u\) and \(u'\) by using Matlab.
-
-  \item Consider the boundary value problem
-  \[
-    -u''(x) + u(x) = \delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1;\qquad
-    u(0)=0,\quad u(1)=0,
-  \]
-  where \(\delta(x-\tfrac{1}{2})\) is the Dirac delta corresponding to a point source at \(x=\tfrac{1}{2}\).
-  Solve for the exact solution by Laplace transform. Plot graphs of \(u\) and \(u'\) by using Matlab. Describe the appearance of the graph of \(u'\).
-
-  \item Consider the boundary value problem
-  \[
-    -u^{(4)}(x)=\delta\!\left(x-\tfrac{1}{2}\right),\quad 0<x<1;\qquad
-    u(0)=0,\quad u''(0)=0,\quad u(1)=0,\quad u''(1)=0.
-  \]
-  Solve for the exact solution \(u\) and plot graphs of \(u,u',u'',u'''\) by using Matlab.
-\end{enumerate}
-
-\newpage
-\section*{Solutions}
-
-\subsection*{Problem 1}
-
-Here I split the response into a constant part and a homogeneous remainder. Let the spatial label be \(\varrho\) and define \(\mathfrak{U}(\varrho)=u(\varrho)\). Peel off the constant particular piece by setting \(\Phi(\varrho)=\mathfrak{U}(\varrho)-1\). Then \(\Phi''-\Phi=0\) on \((0,1)\) with traces \(\Phi(0)=-1\) and \(\Phi'(1)=0\).
-
-Write \(\Phi(\varrho)=\alpha\,\cosh\varrho+\beta\,\sinh\varrho\). The Neumann trace at \(1\) gives \(\alpha\sinh 1+\beta\cosh 1=0\), hence \(\beta=-\alpha\tanh 1\). The Dirichlet trace at \(0\) forces \(\alpha=-1\). Therefore the closed forms are
+\textbf{Kinematics and material law.}
+For small deflections the curvature of the neutral axis is
 \[
-\boxed{\,u(\varrho)=1-\frac{\cosh(1-\varrho)}{\cosh 1}\,},\qquad
-\boxed{\,u'(\varrho)=\frac{\sinh(1-\varrho)}{\cosh 1}\,}.
+\kappa(x)\approx \dv[2]{\phi}{x}.
 \]
-Quick checks: substituting back yields \(-u''+u\equiv 1\). The boundary data \(u(0)=0\) and \(u'(1)=0\) are immediate from the formulas.
-
-\PlotsHeading
-\begin{figure}[H]
-  \centering
-  \incfig{p1_u.png}
-  \caption{Exact profile \(u\) for Problem 1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \incfig{p1_up.png}
-  \caption{Slope \(u'\) for Problem 1}
-\end{figure}
-\FloatBarrier
-
-
-\newpage
-\subsection*{Problem 2}
-
-I solve once in general and then specialize to the mid point. Consider the operator \(L=-\frac{d^{2}}{dx^{2}}+1\) on \((0,1)\) with \(u(0)=u(1)=0\). Its Green kernel \(G(x,a)\) satisfies \(LG(\cdot,a)=\delta(\cdot-a)\) and vanishes at both ends. A compact expression that captures both sides at once is
+For a linear elastic prismatic beam with Young modulus $E$ and second moment of area $I$ the bending moment is related to curvature by
 \[
-G(x,a)=\frac{\sinh(\min\{x,a\})\,\sinh(1-\max\{x,a\})}{\sinh 1}.
+M(x)=-EI\,\kappa(x)=-EI\,\phi''(x).
 \]
-Hence for a unit point source at \(a\) the solution is \(u(x)=G(x,a)\). At the symmetric location \(a=\tfrac12\) it is convenient to write everything through the distance \(d(x)=\bigl|x-\tfrac12\bigr|\):
+
+\textbf{Static balance.}
+Let $Q(x)$ be the shear force and $q(x)$ the distributed transverse load per unit length taken positive downward.
+Classical relations give
 \[
-\boxed{\,u(x)=\frac{\sinh(\tfrac12)}{\sinh 1}\,\sinh\!\bigl(\tfrac12-d(x)\bigr)\,}.
+Q=\dv{M}{x},\qquad q=\dv{Q}{x}=\dv[2]{M}{x}.
 \]
-Away from the source the derivative can be written using the sign map,
+Substituting the constitutive relation yields the field equation
 \[
-\boxed{\,u'(x)=-\frac{\sinh(\tfrac12)}{\sinh 1}\,\operatorname{sgn}\!\bigl(x-\tfrac12\bigr)\,
-\cosh\!\bigl(\tfrac12-d(x)\bigr)\,}\quad(x\neq\tfrac12).
+EI\,\phi^{(4)}(x)=q(x).
 \]
-Two standard verifications: the endpoints give \(u(0)=u(1)=0\); integrating \(Lu=\delta\) across \(x=\tfrac12\) yields the jump rule \(u'(\tfrac12+)-u'(\tfrac12-)=-1\), which the explicit \(u'\) satisfies.
 
-\PlotsHeading
-\begin{figure}[H]
-  \centering
-  \incfig{p2_u.png}
-  \caption{Response \(u\) for a centered unit source}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \incfig{p2_up.png}
-  \caption{Derivative \(u'\) showing the unit negative jump at the source}
-\end{figure}
-\FloatBarrier
-
-
-\newpage
-\subsection*{Problem 3}
-
-Here the fourth derivative vanishes away from the load, so the field is cubic on each side of the split point. I parametrize the two pieces as
+\textbf{Loads in the present setting.}
+There are two sources
+a concentrated force of magnitude $P$ at $x=L/3$ and the uniform self weight.
+With total mass $m$ and gravity $g$ the constant load per unit length is
 \[
-u_{L}(x)=a\,x^{3}+b\,x^{2}+c\,x+d,\qquad 0\le x\le\tfrac12,
+\Omega=\frac{mg}{L}.
 \]
+Hence the total load density is
 \[
-u_{R}(x)=A\,x^{3}+B\,x^{2}+C\,x+D,\qquad \tfrac12\le x\le 1.
+q(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\Omega
+= P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L}.
 \]
-The boundary requirements \(u(0)=u''(0)=0\) give \(d=0\) and \(b=0\). The right end conditions \(u(1)=u''(1)=0\) constrain the right hand coefficients. At the interface \(x=\tfrac12\) I glue the pieces with continuity of \(u\), \(u'\) and \(u''\). The distributional equation enforces one final rule on the third derivative
+Therefore
 \[
-u^{(3)}\!\left(\tfrac12+\right)-u^{(3)}\!\left(\tfrac12-\right)=-1.
+EI\,\phi^{(4)}(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L}.
 \]
-Solving this linear system fixes all constants and yields the explicit cubic pair
+
+\textbf{Boundary conditions.}
+Both ends are clamped so deflection and rotation vanish
 \[
-\boxed{\,u(x)=
-\begin{cases}
-\dfrac{x^{3}}{12}-\dfrac{x}{16}, & 0\le x\le \tfrac12,\\[6pt]
--\dfrac{x^{3}}{12}+\dfrac{x^{2}}{4}-\dfrac{3x}{16}+\dfrac{1}{48}, & \tfrac12\le x\le 1.
-\end{cases}}
+\phi(0)=0,\qquad \phi'(0)=0,\qquad \phi(L)=0,\qquad \phi'(L)=0.
 \]
-For later reference the third derivative is piecewise constant,
+
+\textbf{Jump implied by the point load.}
+Integrating the field equation over a small interval centered at $x=L/3$ gives the shear jump
 \[
-u^{(3)}(x)=
-\begin{cases}
-\dfrac12, & 0<x<\tfrac12,\\[4pt]
--\dfrac12, & \tfrac12<x<1,
-\end{cases}
+\phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{+}\right)
+-
+\phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{-}\right)
+=\frac{P}{EI}.
 \]
-so the jump has the correct magnitude and sign. One can check directly that \(u(0)=u(1)=0\) and \(u''(0)=u''(1)=0\).
 
-\PlotsHeading
-\begin{figure}[H]
-  \centering
-  \incfig{p3_u.png}
-  \caption{Cubic piecewise profile \(u\)}
-\end{figure}
+\textbf{Final model.}
+With the notation above the boundary value problem is
+\[
+\boxed{\;
+EI\,\phi^{(4)}(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L},
+\qquad
+\phi(0)=\phi'(0)=0,\quad \phi(L)=\phi'(L)=0
+\;}
+\]
+which matches the statement of the assignment after the change of variable $\phi\leftrightarrow v$ and $\Omega=mg/L$.
 
-\begin{figure}[H]
-  \centering
-  \incfig{p3_up.png}
-  \caption{First derivative \(u'\)}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \incfig{p3_upp.png}
-  \caption{Second derivative \(u''\)}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \incfig{p3_uppp.png}
-  \caption{Third derivative \(u^{(3)}\)}
-\end{figure}
-\FloatBarrier
-
-\newpage
-\printbibliography
-
-\end{document}
