@@ -1,73 +1,172 @@
-% ========= in Problems =========
-\item A uniform Euler Bernoulli beam of length $L$ and mass $m$ is clamped at both ends.
-A vertical point load $P$ is applied at $x=L/3$.
-Let $\phi(x)$ denote the small transverse deflection.
-Derive from first principles the boundary value model for $\phi$ that includes the self weight of the beam.
+\documentclass[12pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[section]{placeins}
+\usepackage{url}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{csquotes}
+\usepackage[style=apa]{biblatex}
+\addbibresource{ref.bib}
 
-% ========= in Solutions =========
-\subsection*{Problem 1a  derivation of the model}
+\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm, headheight=15pt}
+\addtolength{\topmargin}{-2.5pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH 477: Applied Finite Element Analysis}
+\fancyhead[R]{Homework Report 2}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% look for images in repo root and in figs/
+\graphicspath{{./}{figs/}}
+% convenient include macro with graceful fallback box
+\newcommand{\incfig}[1]{%
+  \IfFileExists{#1}{\includegraphics[width=.7\linewidth]{#1}}{%
+    \IfFileExists{figs/#1}{\includegraphics[width=.7\linewidth]{figs/#1}}{%
+      \fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}}}
+% heading that cannot be jumped by floats
+\newcommand{\PlotsHeading}{%
+  \FloatBarrier
+  \noindent\textbf{Plots}\par\vspace{0.25em}%
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+    \vspace*{0.5cm}
+    {\Large\bfseries MATH 477: Applied Finite Element Analysis\par}
+
+    \vspace{1cm}
+    {\large Homework Report 2\par}
+
+    \vspace{0.5cm}
+    {\today\par}
+
+    \vspace{1pt}
+    \includegraphics[width=0.3\textwidth]{NU-logo.png}\\
+    \includegraphics[width=0.15\textwidth]{sosah-logo.png}
+
+    \vspace{0.5cm}
+    Submitted for {\bf MATH 477: Applied Finite Element Analysis}, Department of Mathematics, School of Sciences and Humanities, Nazarbayev University
+
+    \vspace{0.5cm}
+    {\large Student Name:\par}
+    \begin{itemize}[leftmargin=5cm,rightmargin=4cm]
+        \item Abdizhan Zhapan \quad ID: 202173002
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \flushleft{
+      Subject Area: {\bf Applied Finite Element Analysis} \\
+      Description: {\bf Homework Report} \\
+      Course Instructor: {\bf Dongming Wei}
+    }
+
+    \vspace{0.5cm}
+    {\footnotesize In submitting this work we are indicating
+    that we have read the University Academic Integrity Policy. We
+    declare that all material in this assessment is our own work except
+    where there is clear acknowledgment and reference to the work of
+    others.\par}
+\end{titlepage}
+
+\newpage
+\section*{Problems}
+
+\begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
+  \item A uniform Euler Bernoulli beam of length $L$ and total mass $m$ is clamped at $x=0$ and $x=L$.
+  A vertical point load of magnitude $P$ acts at $x=L/3$.
+  Let $\phi(x)$ denote the small transverse deflection.
+  Derive from mechanics the boundary value model for $\phi$ that includes the constant self weight of the beam.
+\end{enumerate}
+
+\newpage
+\section*{Solutions}
+
+\subsection*{Problem 1a  derivation of the beam model}
 
 \textbf{Kinematics and material law.}
-For small deflections the curvature of the neutral axis is
+For small deflection the curvature of the neutral axis is
 \[
 \kappa(x)\approx \dv[2]{\phi}{x}.
 \]
-For a linear elastic prismatic beam with Young modulus $E$ and second moment of area $I$ the bending moment is related to curvature by
+For a prismatic linear elastic beam with Young modulus $E$ and second moment of area $I$ the bending moment is
 \[
-M(x)=-EI\,\kappa(x)=-EI\,\phi''(x).
+M(x) = - E I\, \kappa(x) = - E I\, \phi''(x).
 \]
 
 \textbf{Static balance.}
-Let $Q(x)$ be the shear force and $q(x)$ the distributed transverse load per unit length taken positive downward.
-Classical relations give
+Let $Q(x)$ be the shear force and $q(x)$ be the distributed load per unit length taken positive downward.
+From the standard relations of beam theory
 \[
-Q=\dv{M}{x},\qquad q=\dv{Q}{x}=\dv[2]{M}{x}.
+Q = \dv{M}{x},
+\qquad
+q = \dv{Q}{x} = \dv[2]{M}{x}.
 \]
-Substituting the constitutive relation yields the field equation
+Combining with the constitutive law gives the field equation
 \[
-EI\,\phi^{(4)}(x)=q(x).
+E I\, \phi^{(4)}(x) = q(x).
 \]
 
 \textbf{Loads in the present setting.}
-There are two sources
-a concentrated force of magnitude $P$ at $x=L/3$ and the uniform self weight.
-With total mass $m$ and gravity $g$ the constant load per unit length is
+Two sources act on the beam.
+There is a concentrated force $P$ applied at $x=L/3$ and there is the uniform self weight.
+With total mass $m$ and gravity $g$ the weight per unit length is
 \[
-\Omega=\frac{mg}{L}.
+\Omega = \frac{m g}{L}.
 \]
-Hence the total load density is
+Hence the load density is
 \[
-q(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\Omega
-= P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L}.
+q(x) = P\,\delta\!\left(x-\frac{L}{3}\right) + \Omega
+      = P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L}.
 \]
-Therefore
+Therefore the governing equation becomes
 \[
-EI\,\phi^{(4)}(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L}.
+E I\, \phi^{(4)}(x) = P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L}.
 \]
 
 \textbf{Boundary conditions.}
-Both ends are clamped so deflection and rotation vanish
+Both ends are clamped which enforces zero deflection and zero rotation
 \[
 \phi(0)=0,\qquad \phi'(0)=0,\qquad \phi(L)=0,\qquad \phi'(L)=0.
 \]
 
-\textbf{Jump implied by the point load.}
-Integrating the field equation over a small interval centered at $x=L/3$ gives the shear jump
+\textbf{Jump produced by the point load.}
+Integrating the field equation across a small interval that contains $x=L/3$ yields
 \[
 \phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{+}\right)
 -
 \phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{-}\right)
-=\frac{P}{EI}.
+= \frac{P}{E I},
 \]
+which is the expected jump in shear.
 
 \textbf{Final model.}
-With the notation above the boundary value problem is
+The boundary value problem for the deflection $\phi$ is
 \[
 \boxed{\;
-EI\,\phi^{(4)}(x)=P\,\delta\!\left(x-\frac{L}{3}\right)+\frac{mg}{L},
+E I\, \phi^{(4)}(x) =
+P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L},
 \qquad
 \phi(0)=\phi'(0)=0,\quad \phi(L)=\phi'(L)=0
 \;}
 \]
-which matches the statement of the assignment after the change of variable $\phi\leftrightarrow v$ and $\Omega=mg/L$.
+which matches the form requested in the assignment after the change of notation $\phi \leftrightarrow v$ and $\Omega = m g L^{-1}$.
 
+\newpage
+\printbibliography
+
+\end{document}
