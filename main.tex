@@ -1,172 +1,201 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{microtype}
-\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{graphicx}
-\usepackage{float}
-\usepackage[section]{placeins}
-\usepackage{url}
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
-\usepackage{tabularx}
+\usepackage{float}
 \usepackage{mathtools}
 \usepackage{csquotes}
-\usepackage[style=apa]{biblatex}
-\addbibresource{ref.bib}
+\usepackage{xcolor}
 
-\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm, headheight=15pt}
+\geometry{left=3cm,right=3cm,top=3cm,bottom=3cm,headheight=15pt}
 \addtolength{\topmargin}{-2.5pt}
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{MATH 477: Applied Finite Element Analysis}
-\fancyhead[R]{Homework Report 2}
+\fancyhead[L]{MATH 477 Applied Finite Element Analysis}
+\fancyhead[R]{Homework Report \#3}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-% look for images in repo root and in figs/
-\graphicspath{{./}{figs/}}
-% convenient include macro with graceful fallback box
-\newcommand{\incfig}[1]{%
-  \IfFileExists{#1}{\includegraphics[width=.7\linewidth]{#1}}{%
-    \IfFileExists{figs/#1}{\includegraphics[width=.7\linewidth]{figs/#1}}{%
-      \fbox{\rule{0pt}{3cm}\rule{.7\linewidth}{0pt}}}}}
-% heading that cannot be jumped by floats
-\newcommand{\PlotsHeading}{%
-  \FloatBarrier
-  \noindent\textbf{Plots}\par\vspace{0.25em}%
-}
-
 \begin{document}
 
+% ========= Title =========
 \begin{titlepage}
-    \centering
+  \centering
+  \vspace*{0.5cm}
+  {\Large\bfseries MATH 477 Applied Finite Element Analysis\par}
+  \vspace{1cm}
+  {\large Homework Report \#3\par}
+  \vspace{0.5cm}
+  {October 19, 2025\par}
+  \vspace{0.7cm}
+  \includegraphics[width=0.3\textwidth]{NU-logo.png}\\[0.3cm]
+  \includegraphics[width=0.18\textwidth]{sosah-logo.png}\\[0.3cm]
+  \vspace{0.3cm}
+  Submitted for {\bf MATH 477 Applied Finite Element Analysis}, Department of Mathematics,\\
+  School of Sciences and Humanities, Nazarbayev University
 
-    \vspace*{0.5cm}
-    {\Large\bfseries MATH 477: Applied Finite Element Analysis\par}
-
-    \vspace{1cm}
-    {\large Homework Report 2\par}
-
-    \vspace{0.5cm}
-    {\today\par}
-
-    \vspace{1pt}
-    \includegraphics[width=0.3\textwidth]{NU-logo.png}\\
-    \includegraphics[width=0.15\textwidth]{sosah-logo.png}
-
-    \vspace{0.5cm}
-    Submitted for {\bf MATH 477: Applied Finite Element Analysis}, Department of Mathematics, School of Sciences and Humanities, Nazarbayev University
-
-    \vspace{0.5cm}
-    {\large Student Name:\par}
-    \begin{itemize}[leftmargin=5cm,rightmargin=4cm]
-        \item Abdizhan Zhapan \quad ID: 202173002
-    \end{itemize}
-
-    \vspace{0.5cm}
-    \flushleft{
-      Subject Area: {\bf Applied Finite Element Analysis} \\
-      Description: {\bf Homework Report} \\
-      Course Instructor: {\bf Dongming Wei}
-    }
-
-    \vspace{0.5cm}
-    {\footnotesize In submitting this work we are indicating
-    that we have read the University Academic Integrity Policy. We
-    declare that all material in this assessment is our own work except
-    where there is clear acknowledgment and reference to the work of
-    others.\par}
+  \vspace{0.6cm}
+  {\large Student Name:\par}
+  \begin{itemize}[leftmargin=6cm]
+    \item Alizhan Zhapan
+  \end{itemize}
+  \vspace{0.5cm}
+  \flushleft{
+    Subject Area {\bf Applied Finite Element Analysis}\\
+    Description {\bf Homework Report}\\
+    Course Instructor {\bf Dongming Wei}\\[0.5cm]
+    {\footnotesize By turning in this report I confirm that I have read the Academic Integrity Policy and that any borrowed material is cited.}
+  }
 \end{titlepage}
 
+% ========= Problems =========
 \newpage
-\section*{Problems}
+\section*{Homework 3 Due Oct 6 2025}
+\setcounter{section}{0}
 
-\begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
-  \item A uniform Euler Bernoulli beam of length $L$ and total mass $m$ is clamped at $x=0$ and $x=L$.
-  A vertical point load of magnitude $P$ acts at $x=L/3$.
-  Let $\phi(x)$ denote the small transverse deflection.
-  Derive from mechanics the boundary value model for $\phi$ that includes the constant self weight of the beam.
+\subsection*{Problem 1}
+Study the boundary value model
+\[
+-\,u''(x)+u(x)=1,\qquad 0<x<1,\qquad u(0)=0,\; u'(1)=0.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Obtain the exact field by the Laplace transform route.
+  \item Use three nodes $x_1=0$, $x_2=\tfrac12$, $x_3=1$ and a single quadratic interpolation. Write
+  \(
+  u_{\mathrm{app}}(x)=\alpha x^{2}+\beta x+\gamma
+  \)
+  and match $u_{\mathrm{app}}(x_i)=u(x_i)$ for $i=1,2,3$. Express the interpolant as
+  \(
+  u_{\mathrm{app}}(x)=\sum_{i=1}^{3}\varphi_i(x)\, \upsilon_i
+  \)
+  with nodal values $\upsilon_1=u(0)$, $\upsilon_2=u(\tfrac12)$, $\upsilon_3=u(1)$. Form the Galerkin equations and write the $3\times3$ matrix for the unknowns $\upsilon_2$ and $\upsilon_3$ after imposing $u(0)=0$ and the natural condition at $x=1$.
+  \item Plot the exact field and the quadratic finite element field and comment on their difference.
 \end{enumerate}
 
+\subsection*{Problem 2}
+Consider
+\[
+-\,u''(x)+u(x)=\delta\!\left(x-\tfrac12\right),\qquad 0<x<1,\qquad u(0)=0,\; u'(1)=1,
+\]
+where $\delta$ is the Dirac measure at $x=\tfrac12$.
+\begin{enumerate}[label=(\alph*)]
+  \item Find the exact solution by Laplace transforms and produce a plot.
+  \item Use the same nodes $0,\tfrac12,1$ with two linear elements and compute the discrete solution.
+  \item Plot the discrete field and compare with the exact one.
+\end{enumerate}
+
+% ========= Solutions =========
 \newpage
 \section*{Solutions}
 
-\subsection*{Problem 1a  derivation of the beam model}
-
-\textbf{Kinematics and material law.}
-For small deflection the curvature of the neutral axis is
+\subsection*{Problem 1}
+\paragraph{Exact field.}
+For
+\(
+-\,u''+u=1
+\)
+with $u(0)=0$ and $u'(1)=0$, the complementary part is $C_1 e^{x}+C_2 e^{-x}$ and a constant particular is $1$. Enforcing the data gives
 \[
-\kappa(x)\approx \dv[2]{\phi}{x}.
+\boxed{\,u(x)=1-\dfrac{\cosh\!\big(1-x\big)}{\cosh 1}\, }.
 \]
-For a prismatic linear elastic beam with Young modulus $E$ and second moment of area $I$ the bending moment is
-\[
-M(x) = - E I\, \kappa(x) = - E I\, \phi''(x).
-\]
 
-\textbf{Static balance.}
-Let $Q(x)$ be the shear force and $q(x)$ be the distributed load per unit length taken positive downward.
-From the standard relations of beam theory
+\paragraph{Finite element field with one quadratic element.}
+Let the three nodal unknowns be collected in the vector $\boldsymbol{\varpi}=[\upsilon_1,\upsilon_2,\upsilon_3]^{\mathsf{T}}$ and use the standard quadratic basis $\{\varphi_1,\varphi_2,\varphi_3\}$ on $[0,1]$ with node set $\{0,\tfrac12,1\}$. The element matrices for the model $-u''+u=f$ are
 \[
-Q = \dv{M}{x},
+K^{(e)}=\frac{1}{3}
+\begin{bmatrix}
+7&-8&1\\
+-8&16&-8\\
+1&-8&7
+\end{bmatrix}
++\frac{1}{30}
+\begin{bmatrix}
+4&8&-1\\
+8&16&2\\
+-1&2&4
+\end{bmatrix},
 \qquad
-q = \dv{Q}{x} = \dv[2]{M}{x}.
+\boldsymbol{f}^{(e)}=\frac{1}{6}\begin{bmatrix}1\\4\\1\end{bmatrix}.
 \]
-Combining with the constitutive law gives the field equation
+With the essential datum $\upsilon_1=0$ and the natural datum at $x=1$, the discrete unknowns are
 \[
-E I\, \phi^{(4)}(x) = q(x).
+\boldsymbol{\varpi}=
+\begin{bmatrix}
+0\\[2pt]
+0.26945\\[2pt]
+0.35159
+\end{bmatrix}.
 \]
+Hence
+\(
+u_{\mathrm{app}}(x)=\sum_{i=1}^{3}\varphi_i(x)\,\upsilon_i
+\).
 
-\textbf{Loads in the present setting.}
-Two sources act on the beam.
-There is a concentrated force $P$ applied at $x=L/3$ and there is the uniform self weight.
-With total mass $m$ and gravity $g$ the weight per unit length is
-\[
-\Omega = \frac{m g}{L}.
-\]
-Hence the load density is
-\[
-q(x) = P\,\delta\!\left(x-\frac{L}{3}\right) + \Omega
-      = P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L}.
-\]
-Therefore the governing equation becomes
-\[
-E I\, \phi^{(4)}(x) = P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L}.
-\]
+\paragraph{Plots.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{hw3_prob1.png}
+  \caption{Problem 1 exact field and quadratic finite element field.}
+\end{figure}
 
-\textbf{Boundary conditions.}
-Both ends are clamped which enforces zero deflection and zero rotation
+\subsection*{Problem 2}
+\paragraph{Exact field.}
+For the source at $x=\tfrac12$ write two exponentials on the subintervals
 \[
-\phi(0)=0,\qquad \phi'(0)=0,\qquad \phi(L)=0,\qquad \phi'(L)=0.
+u(x)=
+\begin{cases}
+A_1 e^{x}+B_1 e^{-x}, & 0\le x\le \tfrac12,\\[2pt]
+A_2 e^{x}+B_2 e^{-x}, & \tfrac12\le x\le 1.
+\end{cases}
 \]
+Impose continuity at $x=\tfrac12$ and the jump in the derivative
+\(
+u'_R(\tfrac12)-u'_L(\tfrac12)=-1
+\),
+together with $u(0)=0$ and $u'(1)=1$, to determine $A_j,B_j$.
 
-\textbf{Jump produced by the point load.}
-Integrating the field equation across a small interval that contains $x=L/3$ yields
+\paragraph{Two linear elements.}
+Take two segments of length $\ell=\tfrac12$. The element matrix and vector for $-u''+u$ with unit right hand side over each element are
 \[
-\phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{+}\right)
--
-\phi^{(3)}\!\left(\Bigl(\tfrac{L}{3}\Bigr)^{-}\right)
-= \frac{P}{E I},
+K^{(e)}=\frac{1}{\ell}
+\begin{bmatrix}
+1&-1\\
+-1&1
+\end{bmatrix}
++\frac{\ell}{6}
+\begin{bmatrix}
+2&1\\
+1&2
+\end{bmatrix}.
 \]
-which is the expected jump in shear.
-
-\textbf{Final model.}
-The boundary value problem for the deflection $\phi$ is
+After assembly and inclusion of the unit point load at the middle node, one obtains
 \[
-\boxed{\;
-E I\, \phi^{(4)}(x) =
-P\,\delta\!\left(x-\frac{L}{3}\right) + \frac{m g}{L},
+\boldsymbol{F}=\begin{bmatrix}0\\1\\1\end{bmatrix},
 \qquad
-\phi(0)=\phi'(0)=0,\quad \phi(L)=\phi'(L)=0
-\;}
+\boldsymbol{u}=
+\begin{bmatrix}
+0\\[2pt]
+0.71409\\[2pt]
+1.09380
+\end{bmatrix}.
 \]
-which matches the form requested in the assignment after the change of notation $\phi \leftrightarrow v$ and $\Omega = m g L^{-1}$.
 
-\newpage
-\printbibliography
+\paragraph{Plots.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{hw3_prob2.png}
+  \caption{Problem 2 exact field and linear finite element field.}
+\end{figure}
+
+\section*{Discussion}
+The quadratic discretization in the first task tracks the curvature of the exact field with high accuracy on a single element. In the second task the pair of linear elements reproduces the correct change in slope at the source location and matches the analytic profile well away from the source.
 
 \end{document}
